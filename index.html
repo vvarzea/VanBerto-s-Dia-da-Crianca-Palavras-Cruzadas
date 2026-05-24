@@ -93,11 +93,12 @@ body{font-family:'Nunito','Baloo 2',sans-serif;background:#1a0a2e;min-height:100
 /* ROBOT CORNER */
 .robot-wrap{display:none;flex-direction:column;align-items:center;gap:4px;margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,107,53,.2);}
 .robot-wrap.visible{display:flex;}
+.robot-row-inner{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:0;width:100%;}
 .robot-name{font-family:'Fredoka One',cursive;font-size:clamp(.7rem,2vw,.82rem);color:#ffd700;text-shadow:0 1px 6px rgba(0,0,0,.8);text-align:center;margin-top:2px;line-height:1.2;}
-.bubble{--bc:#dcebff;background:linear-gradient(135deg,var(--bc),#fff);border:3px solid #0f172a;outline:2px solid #1e293b;outline-offset:-4px;border-radius:20px;padding:10px 13px 9px;box-shadow:4px 4px 0 #0f172a;font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-size:clamp(.75rem,2.2vw,.9rem);font-weight:bold;color:#0f172a;max-width:180px;min-width:130px;text-align:center;pointer-events:none;position:relative;opacity:0;transform:translateY(8px) scale(.88);transition:opacity .38s,transform .38s cubic-bezier(.34,1.56,.64,1);margin-bottom:6px;}
-.bubble::after{content:"";position:absolute;bottom:-16px;left:50%;transform:translateX(-50%);border-left:10px solid transparent;border-right:10px solid transparent;border-top:16px solid #0f172a;}
-.bubble::before{content:"";position:absolute;bottom:-11px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-top:13px solid var(--bc);z-index:1;}
-.bubble.show{opacity:1;transform:translateY(0) scale(1);}
+.bubble{--bc:#dcebff;background:linear-gradient(135deg,var(--bc),#fff);border:3px solid #0f172a;outline:2px solid #1e293b;outline-offset:-4px;border-radius:20px;padding:10px 14px 10px 18px;box-shadow:4px 4px 0 #0f172a;font-family:"Comic Sans MS","Trebuchet MS",sans-serif;font-size:clamp(.7rem,1.8vw,.86rem);font-weight:bold;color:#0f172a;max-width:160px;min-width:100px;text-align:center;pointer-events:none;line-height:1.4;position:relative;opacity:1;transform:scale(1);transition:opacity .38s,transform .38s cubic-bezier(.34,1.56,.64,1);margin-left:10px;flex-shrink:1;}
+.bubble::after{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:16px solid #0f172a;}
+.bubble::before{content:"";position:absolute;left:-11px;top:50%;transform:translateY(-50%);border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:12px solid var(--bc);z-index:1;}
+.bubble.show{opacity:1;transform:scale(1);}
 #vb-robot{width:clamp(60px,10vw,90px);cursor:pointer;flex-shrink:0;animation:vbFloat 3s ease-in-out infinite;filter:drop-shadow(0 0 10px #7dd3fc);}
 #vb-robot:hover{filter:drop-shadow(0 0 22px #38bdf8);}
 #vb-robot.bounce{animation:robotPop .65s cubic-bezier(.34,1.56,.64,1),vbFloat 3s ease-in-out .65s infinite;}
@@ -128,8 +129,9 @@ body{font-family:'Nunito','Baloo 2',sans-serif;background:#1a0a2e;min-height:100
   .clues-panel{flex:none;width:100%;max-height:220px;overflow-y:auto;flex-direction:row;flex-wrap:wrap;gap:6px;}
   .clues-section{flex:1;min-width:140px;}
   #vb-robot{width:clamp(52px,13vw,72px);}
-  .robot-wrap{flex-direction:row;justify-content:center;gap:10px;padding-top:6px;}
-  .bubble{max-width:140px;min-width:100px;font-size:.7rem;}
+  .robot-wrap{padding-top:6px;}
+  #robot-inline-wrap{flex:none;width:100%;border-top:1px solid rgba(255,107,53,.2);}
+  .bubble{max-width:130px;min-width:90px;font-size:.7rem;}
   .btn{padding:6px 10px;font-size:.76rem;}
   .bottom-bar{gap:6px;}
   #gameScreen{padding-top:.4rem;padding-bottom:max(4.5rem,calc(4.5rem + env(safe-area-inset-bottom)));}
@@ -227,25 +229,27 @@ body{font-family:'Nunito','Baloo 2',sans-serif;background:#1a0a2e;min-height:100
         <div id="clues-down"></div>
       </div>
       <div id="robot-inline-wrap" class="robot-wrap">
-        <div class="bubble" id="bubble" role="status" aria-live="polite">Olá!</div>
-        <svg id="vb-robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" role="button" tabindex="0" aria-label="VanBerto">
-          <defs>
-            <linearGradient id="rbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e5f2ff"/><stop offset="100%" stop-color="#bfdbfe"/></linearGradient>
-            <linearGradient id="rvg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient>
-          </defs>
-          <circle cx="40" cy="40" r="34" fill="rgba(147,197,253,0.35)"/>
-          <rect x="18" y="30" width="44" height="32" rx="14" fill="url(#rbg)"/>
-          <circle cx="40" cy="46" r="7" fill="#9ca3af"/>
-          <rect x="22" y="10" width="36" height="26" rx="13" fill="url(#rbg)"/>
-          <rect x="26" y="15" width="28" height="16" rx="8" fill="url(#rvg)"/>
-          <rect class="vb-eyelid" x="26" y="15" width="28" height="16" rx="8" fill="#e5f2ff" opacity="0.9"/>
-          <circle cx="33" cy="23" r="2.5" fill="#0f172a"/><circle cx="47" cy="23" r="2.5" fill="#0f172a"/>
-          <circle cx="34.2" cy="21.5" r="1" fill="white" opacity="0.8"/><circle cx="48.2" cy="21.5" r="1" fill="white" opacity="0.8"/>
-          <line x1="40" y1="10" x2="40" y2="4" stroke="#38bdf8" stroke-width="2"/><circle cx="40" cy="3" r="2.5" fill="#38bdf8"/>
-          <rect x="12" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
-          <rect class="vb-arm" x="62" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
-          <rect x="22" y="58" width="12" height="8" rx="3" fill="#1f2937"/><rect x="46" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
-        </svg>
+        <div class="modal-robot-row" style="margin-bottom:6px;">
+          <svg id="vb-robot" class="modal-robot" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" role="button" tabindex="0" aria-label="VanBerto">
+            <defs>
+              <linearGradient id="gbg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e5f2ff"/><stop offset="100%" stop-color="#bfdbfe"/></linearGradient>
+              <linearGradient id="gvg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#22d3ee"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient>
+            </defs>
+            <circle cx="40" cy="40" r="34" fill="rgba(147,197,253,0.35)"/>
+            <rect x="18" y="30" width="44" height="32" rx="14" fill="url(#gbg2)"/>
+            <circle cx="40" cy="46" r="7" fill="#9ca3af"/>
+            <rect x="22" y="10" width="36" height="26" rx="13" fill="url(#gbg2)"/>
+            <rect x="26" y="15" width="28" height="16" rx="8" fill="url(#gvg2)"/>
+            <rect class="modal-eyelid" x="26" y="15" width="28" height="16" rx="8" fill="#e5f2ff" opacity="0.9"/>
+            <circle cx="33" cy="23" r="2.5" fill="#0f172a"/><circle cx="47" cy="23" r="2.5" fill="#0f172a"/>
+            <circle cx="34.2" cy="21.5" r="1" fill="white" opacity="0.8"/><circle cx="48.2" cy="21.5" r="1" fill="white" opacity="0.8"/>
+            <line x1="40" y1="10" x2="40" y2="4" stroke="#38bdf8" stroke-width="2"/><circle cx="40" cy="3" r="2.5" fill="#38bdf8"/>
+            <rect x="12" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+            <rect class="modal-robot-arm" x="62" y="34" width="6" height="20" rx="3" fill="#e5e7eb"/>
+            <rect x="22" y="58" width="12" height="8" rx="3" fill="#1f2937"/><rect x="46" y="58" width="12" height="8" rx="3" fill="#1f2937"/>
+          </svg>
+          <div class="modal-bubble-box" id="bubble" role="status" aria-live="polite">Clica numa pista e escreve! ✏️</div>
+        </div>
         <div class="robot-name" id="robot-player-name">👤 Herói</div>
       </div>
     </div>
@@ -383,7 +387,7 @@ function buildGrid() {
         inp.maxLength = 1;
         inp.dataset.r = r; inp.dataset.c = c;
         inp.autocomplete = 'off';
-        inp.setAttribute('inputmode','text');
+        inp.setAttribute('inputmode','none');
         inp.setAttribute('autocorrect','off');
         inp.setAttribute('autocapitalize','characters');
         inp.setAttribute('spellcheck','false');
@@ -391,7 +395,7 @@ function buildGrid() {
         inp.addEventListener('input', e => onInput(e, r, c));
         inp.addEventListener('keydown', e => onKeydown(e, r, c));
         cell.appendChild(inp);
-        cell.addEventListener('click', () => { inp.focus(); });
+        cell.addEventListener('click', (e) => { e.stopPropagation(); activateMobileInput(r, c); });
       }
       el.appendChild(cell);
     }
@@ -402,6 +406,66 @@ function buildGrid() {
 
 function getCell(r,c) { return document.querySelector(`.cw-cell[data-r="${r}"][data-c="${c}"]`); }
 function getInput(r,c) { const cl=getCell(r,c); return cl?cl.querySelector('.cw-input'):null; }
+
+/* ══ MOBILE KEYBOARD ══ */
+// A hidden textarea that we use to capture keyboard input on mobile.
+// We route its events to the active cell's real input.
+let mobileR = null, mobileC = null;
+let mobileTA = null;
+function getMobileTA() {
+  if (mobileTA) return mobileTA;
+  mobileTA = document.createElement('textarea');
+  mobileTA.setAttribute('inputmode','text');
+  mobileTA.setAttribute('autocorrect','off');
+  mobileTA.setAttribute('autocapitalize','characters');
+  mobileTA.setAttribute('spellcheck','false');
+  mobileTA.setAttribute('autocomplete','off');
+  mobileTA.style.cssText='position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:50%;left:50%;transform:translate(-50%,-50%);font-size:16px;border:none;outline:none;z-index:9999;';
+  document.body.appendChild(mobileTA);
+  mobileTA.addEventListener('input', e => {
+    if (mobileR===null) return;
+    const raw = mobileTA.value;
+    mobileTA.value = ''; // always clear
+    const ch = raw.slice(-1).toUpperCase().replace(/[^A-ZÁÀÂÃÉÊÍÓÔÕÚÜÇ]/g,'');
+    if (!ch) return;
+    const inp = getInput(mobileR, mobileC);
+    if (!inp || inp.disabled) return;
+    const expected = letterMap[`${mobileR},${mobileC}`] || '';
+    const corrected = normalizeMatch(ch, expected) ? expected : ch;
+    inp.value = corrected;
+    userMap[`${mobileR},${mobileC}`] = corrected;
+    if (!normalizeMatch(corrected, expected)) {
+      const cell = getCell(mobileR,mobileC);
+      if (cell) { cell.classList.add('wrong-flash'); setTimeout(()=>cell.classList.remove('wrong-flash'),400); }
+    }
+    moveNext(mobileR, mobileC);
+    checkWords();
+  });
+  mobileTA.addEventListener('keydown', e => {
+    if (mobileR===null) return;
+    if (e.key==='Backspace') {
+      const inp = getInput(mobileR, mobileC);
+      if (inp && !inp.value) { movePrev(mobileR,mobileC); }
+      else if (inp) { inp.value=''; userMap[`${mobileR},${mobileC}`]=''; mobileTA.value=''; e.preventDefault(); }
+    }
+    if (e.key==='Enter') { e.preventDefault(); checkWords(true); }
+  });
+  mobileTA.addEventListener('blur', () => {
+    // brief delay so a tap on another cell can re-focus
+    setTimeout(()=>{ if(mobileR!==null && document.activeElement!==mobileTA) setActiveCell(mobileR,mobileC); }, 80);
+  });
+  return mobileTA;
+}
+function activateMobileInput(r, c) {
+  const inp = getInput(r,c);
+  if (!inp || inp.disabled) return;
+  mobileR = r; mobileC = c;
+  onFocus(r, c);
+  const ta = getMobileTA();
+  ta.value = '';
+  ta.focus();
+}
+function isMobileDevice() { return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || ('ontouchstart' in window); }
 
 /* ══ HIGHLIGHT ══ */
 function highlight(wobj) {
@@ -429,6 +493,7 @@ function setActiveCell(r,c) {
 }
 
 function onFocus(r, c) {
+  mobileR = r; mobileC = c;
   const candidates = CLUE_WORDS.filter(w => {
     for (let i=0;i<w.w.length;i++) {
       const wr = w.d==='down'? w.r+i : w.r;
@@ -512,7 +577,10 @@ function moveNext(r,c) {
   // find next non-disabled cell after current position
   for (let i=idx+1; i<cells.length; i++) {
     const inp = getInput(cells[i].r, cells[i].c);
-    if (inp && !inp.disabled) { focusCell(cells[i].r, cells[i].c); return; }
+    if (inp && !inp.disabled) { 
+      mobileR = cells[i].r; mobileC = cells[i].c;
+      focusCell(cells[i].r, cells[i].c); return; 
+    }
   }
   // all remaining cells done — stay put
 }
@@ -530,7 +598,9 @@ function movePrev(r,c) {
 function focusCell(r,c) {
   if (r<0||r>=ROWS||c<MIN_COL||c>=MIN_COL+COLS) return;
   const inp = getInput(r,c);
-  if (inp && !inp.disabled) inp.focus();
+  if (!inp || inp.disabled) return;
+  if (isMobileDevice()) { activateMobileInput(r,c); }
+  else { inp.focus(); }
 }
 
 /* ══ CHECK WORDS ══ */
@@ -667,6 +737,7 @@ document.getElementById('btnStart').addEventListener('click', () => {
   document.getElementById('gamePlayerName').textContent = playerName;
   document.getElementById('robot-player-name').textContent = '👤 '+playerName;
   document.getElementById('robot-inline-wrap').classList.add('visible');
+  document.getElementById('bubble').textContent = 'Vamos lá, ' + playerName + '! 🎈';
   requestAnimationFrame(()=>requestAnimationFrame(buildGrid));
 });
 document.getElementById('btn-restart').addEventListener('click', ()=>{ buildGrid(); showBub('Novo jogo! Bora lá! 🎈'); });
@@ -691,7 +762,7 @@ function stopConf(){clearInterval(cInt);const el=document.getElementById('confet
 /* ══ ROBOT ══ */
 const MSGS=['Clica numa pista e escreve! ✏️','Vamos lá, és incrível! 🌟','Não desistas, consegues! 💪','Usa a dica! 💡','As letras cruzam-se! 🔤','Dia da Criança, dia especial! 🎈','Já estás quase! Força! 🚀','Que jogador fantástico! 🏆'];
 let bubT=null;
-function showBub(msg){const b=document.getElementById('bubble');b.textContent=msg;b.classList.add('show');clearTimeout(bubT);bubT=setTimeout(()=>b.classList.remove('show'),3500);}
+function showBub(msg){const b=document.getElementById('bubble');if(b)b.textContent=msg;}
 const vbR=document.getElementById('vb-robot');
 vbR.addEventListener('click',()=>{vbR.classList.remove('bounce');void vbR.offsetWidth;vbR.classList.add('bounce');showBub(MSGS[Math.floor(Math.random()*MSGS.length)]);});
 vbR.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){vbR.classList.remove('bounce');void vbR.offsetWidth;vbR.classList.add('bounce');showBub(MSGS[Math.floor(Math.random()*MSGS.length)]);}});
